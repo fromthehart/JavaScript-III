@@ -9,12 +9,14 @@
 * write out a code example of each explanation above
 */
 
+'use strict';
+
 // Principle 1
 // code example for Window Binding
 
 console.log("Principle 1: Window Binding");
 function iLove(school) {
-  //console.log(this);
+  console.log(this);
   return `I love ${school}!`;
 }
 console.log(iLove("Lambda School"));
@@ -27,7 +29,7 @@ const iSpy = {
   preamble: 'I spy with my little eye',
   speak: function(letter) {
     console.log(`${this.preamble} something that begins with '${letter.toUpperCase()}'...`);
-    //console.log(this);
+    console.log(this);
   }
 }
 iSpy.speak('A');
@@ -42,7 +44,7 @@ function iSpyGame(letter) {
   this.letter = letter;
   this.speak = function() {
     console.log(`${this.preamble} something that begins with '${this.letter.toUpperCase()}'...`);
-    //console.log(this);
+    console.log(this);
   }
 }
 
