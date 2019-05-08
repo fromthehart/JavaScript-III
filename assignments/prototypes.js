@@ -240,12 +240,12 @@ Humanoid.prototype.greet = function() {
     console.log(player1.greet()); // ... but first, some polite greetings
     console.log(player2.greet());
 
-    let round = 1;
+    let round = 0;
     while (player1.alive && player2.alive) {
+      round++;
       console.log(`\n*** Round ${round} ***`);
       console.log(player1.attack(player2));
-      if (player2.alive) console.log(player2.attack(player1));
-      round++;
+      if (player2.alive) console.log(player2.attack(player1)); 
     }
     return (player1.alive) ? `\n*** The End ***\n${player1.name} is victorious after ${round} rounds!` : `\n*** The End ***\n${player2.name} is the victor after ${round} rounds!`;
   }
