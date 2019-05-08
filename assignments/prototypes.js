@@ -165,7 +165,8 @@ Humanoid.prototype.greet = function() {
 
   Hero.prototype.attack = function(enemy) {
     if (!enemy.alive) return `${enemy.name} is already dead.`;
-    let attackReport = `${this.name} attacks ${enemy.name} with ${this.pronoun} ${this.weapons[0]}.\n`;
+    randomWeapon = this.weapons[Math.floor(Math.random() * 2)];
+    let attackReport = `${this.name} attacks ${enemy.name} with ${this.pronoun} ${randomWeapon}.\n`;
     let damageReport = this.inflictDamage(enemy);
     return attackReport + damageReport;
   }
@@ -184,7 +185,7 @@ Humanoid.prototype.greet = function() {
     if (this.healthPoints < 0) {
       this.healthPoints = 0;
       this.alive = false;
-      return `${this.name} has perished.`;
+      return "Death has been dealt. " + this.destroy();
     }
     return `${this.name} takes ${damage} ${(damage > 1) ? 'points' : 'point'} of damage.`;
   }
@@ -223,12 +224,12 @@ Humanoid.prototype.greet = function() {
     },
     healthPoints: 40,
     alive: true,
-    name: 'Bustin\' Bieber',
+    name: "Bustin' Bieber",
     team: 'Beliebers',
     pronoun: 'his',
     weapons: [
       'Posters from Tiger Beat Magazine',
-      'Youth',
+      "Umlaut from 'Where Are Ü Now'" ,
     ],
     language: 'Canadian',
   });
@@ -243,4 +244,5 @@ Humanoid.prototype.greet = function() {
     return (player1.alive) ? `${player1.name} was victorious!` : `${player2.name} is the victor!`;
   }
 
+  console.log("\n ==== Stretch Task ====");
   console.log(battleItOut(goodun, badun));
