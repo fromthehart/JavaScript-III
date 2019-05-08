@@ -182,11 +182,11 @@ Humanoid.prototype.greet = function() {
   }
 
   Hero.prototype.takeDamage = function(damage) {
-    this.healthPoints -= damage;
-    if (this.healthPoints < 0) {
+    this.healthPoints -= damage; // Subtract the damage from health
+    if (this.healthPoints < 0) { // If health is below zero, make it zero and flag the player as dead
       this.healthPoints = 0;
       this.alive = false;
-      return "Death has been dealt. " + this.destroy();
+      return "Death has been dealt. " + this.destroy(); // .destroy() from GameObject
     }
     return `${this.name} takes ${damage} ${(damage > 1) ? 'points' : 'point'} of damage.`;
   }
@@ -237,6 +237,9 @@ Humanoid.prototype.greet = function() {
 
   function battleItOut(player1, player2) {    
     console.log(`A battle between ${player1.name} and ${player2.name} commences!`);
+    console.log(player1.greet()); // ... but first, some polite greetings
+    console.log(player2.greet());
+
     let round = 1;
     while (player1.alive && player2.alive) {
       console.log(`\n*** Round ${round} ***`);
@@ -244,7 +247,6 @@ Humanoid.prototype.greet = function() {
       if (player2.alive) console.log(player2.attack(player1));
       round++;
     }
-
     return (player1.alive) ? `${player1.name} is victorious after ${round} rounds!` : `${player2.name} is the victor after ${round} rounds!`;
   }
 
