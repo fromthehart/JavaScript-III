@@ -53,5 +53,9 @@ michael.speak();
 steph.speak();
 
 // Principle 4
-
 // code example for Explicit Binding
+
+console.log("\nPrinciple 4: Explicit Binding");
+
+michael.speak.call(steph);
+steph.speak.apply(michael);
