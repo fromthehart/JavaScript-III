@@ -164,8 +164,8 @@ Humanoid.prototype.greet = function() {
   Hero.prototype = Object.create(Humanoid.prototype);
 
   Hero.prototype.attack = function(enemy) {
-    if (!enemy.alive) return `${enemy.name} is already dead.`;
-    randomWeapon = this.weapons[Math.floor(Math.random() * 2)];
+    if (!enemy.alive) return `${enemy.name} is already dead.`; // Attacking a dead enemy would be impolite
+    randomWeapon = this.weapons[Math.floor(Math.random() * this.weapons.length)]; // Pick one of the weapons at random
     let attackReport = `${this.name} attacks ${enemy.name} with ${this.pronoun} ${randomWeapon}.\n`;
     let damageReport = this.inflictDamage(enemy);
     return attackReport + damageReport;
