@@ -247,7 +247,7 @@ Humanoid.prototype.greet = function() {
       if (player2.alive) console.log(player2.attack(player1));
       round++;
     }
-    return (player1.alive) ? `\n*** The End ***\n${player1.name} is victorious after ${round} rounds!` : `${player2.name} is the victor after ${round} rounds!`;
+    return (player1.alive) ? `\n*** The End ***\n${player1.name} is victorious after ${round} rounds!` : `\n*** The End ***\n${player2.name} is the victor after ${round} rounds!`;
   }
 
   console.log("\n ==== Stretch Task ====");
