@@ -80,7 +80,6 @@ Humanoid.prototype.greet = function() {
 // console.log(human.takeDamage());
 // console.log(human.destroy());
 
-
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -89,7 +88,6 @@ Humanoid.prototype.greet = function() {
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -150,9 +148,99 @@ Humanoid.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+
+  function Hero(attributes) {
+    Humanoid.call(this, attributes);
+    this.alive = attributes.alive;
+    this.pronoun = attributes.pronoun;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.attack = function(enemy) {
+    if (!enemy.alive) return `${enemy.name} is already dead.`;
+    let attackReport = `${this.name} attacks ${enemy.name} with ${this.pronoun} ${this.weapons[0]}.\n`;
+    let damageReport = this.inflictDamage(enemy);
+    return attackReport + damageReport;
+  }
+
+  Hero.prototype.inflictDamage = function(enemy) {
+    let hit = Math.round(Math.random() * 10);
+
+    if (hit) {
+      let strength = (hit > 5) ? `${this.name} lands a strong blow!\n` : `${this.name} hits ${enemy.name}.\n`;
+      return strength + enemy.takeDamage(hit);
+    } else return `It's a miss.`;
+  }
+
+  Hero.prototype.takeDamage = function(damage) {
+    this.healthPoints -= damage;
+    if (this.healthPoints < 0) {
+      this.healthPoints = 0;
+      this.alive = false;
+      return `${this.name} has perished.`;
+    }
+    return `${this.name} takes ${damage} ${(damage > 1) ? 'points' : 'point'} of damage.`;
+  }
+
+  function Villain(attributes) {
+    Hero.call(this, attributes);
+  }
+
+  Villain.prototype = Object.create(Hero.prototype);
+
+  const goodun = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    healthPoints: 40,
+    alive: true,
+    name: 'Elvis Deadly',
+    team: 'Memphis Mafia',
+    pronoun: 'his',
+    weapons: [
+      'Blue Suede Shoes',
+      'Pelvis',
+    ],
+    language: 'Elvis-ish',
+  });
+
+  const badun = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    healthPoints: 40,
+    alive: true,
+    name: 'Bustin\' Bieber',
+    team: 'Beliebers',
+    pronoun: 'his',
+    weapons: [
+      'Posters from Tiger Beat Magazine',
+      'Youth',
+    ],
+    language: 'Canadian',
+  });
+
+  function battleItOut(player1, player2) {
+    console.log(`A battle between ${player1.name} and ${player2.name} commences!`);
+    while (player1.alive && player2.alive) {
+      console.log(player1.attack(player2));
+      if (player2.alive) console.log(player2.attack(player1));
+    }
+
+    return (player1.alive) ? `${player1.name} was victorious!` : `${player2.name} is the victor!`;
+  }
+
+  console.log(battleItOut(goodun, badun));
