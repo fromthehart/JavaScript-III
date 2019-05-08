@@ -172,12 +172,13 @@ Humanoid.prototype.greet = function() {
   }
 
   Hero.prototype.inflictDamage = function(enemy) {
-    let hit = Math.round(Math.random() * 10);
+    let hit = Math.floor(Math.random() * 11); // Random damage from 0 - 10
 
-    if (hit) {
-      let strength = (hit > 5) ? `${this.name} lands a strong blow!\n` : `${this.name} hits ${enemy.name}.\n`;
+    if (hit > 3) {
+      // Return a different string depending on strength of the hit
+      let strength = (hit > 7) ? `${this.name} lands a strong blow!\n` : `${this.name} hits ${enemy.name}.\n`;
       return strength + enemy.takeDamage(hit);
-    } else return `It's a miss.`;
+    } else return `It's a miss.`; // Any hit of strength 3 or less is considered a miss
   }
 
   Hero.prototype.takeDamage = function(damage) {
@@ -234,14 +235,17 @@ Humanoid.prototype.greet = function() {
     language: 'Canadian',
   });
 
-  function battleItOut(player1, player2) {
+  function battleItOut(player1, player2) {    
     console.log(`A battle between ${player1.name} and ${player2.name} commences!`);
+    let round = 1;
     while (player1.alive && player2.alive) {
+      console.log(`\n*** Round ${round} ***`);
       console.log(player1.attack(player2));
       if (player2.alive) console.log(player2.attack(player1));
+      round++;
     }
 
-    return (player1.alive) ? `${player1.name} was victorious!` : `${player2.name} is the victor!`;
+    return (player1.alive) ? `${player1.name} is victorious after ${round} rounds!` : `${player2.name} is the victor after ${round} rounds!`;
   }
 
   console.log("\n ==== Stretch Task ====");
