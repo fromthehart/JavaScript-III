@@ -1,10 +1,10 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. In global scope, "this" refers to the window or console
-* 2. When using dot notation, "this" refers to the object before the dot
-* 3. When using a constructor, "this" refers to a specific instance of an object returned by the constructor function
-* 4. Using the call() or apply() method overrides this and what the constructor objects are set to
+* 1. Window Binding: In global scope, "this" refers to the window or console
+* 2. Implicit Binding: When using dot notation, "this" refers to the object before the dot
+* 3. New Binding: When using a constructor, "this" refers to a specific instance of an object returned by the constructor function
+* 4. Explicit Binding: Using the call() or apply() method overrides this and what the constructor objects are set to
 *
 * write out a code example of each explanation above
 */
